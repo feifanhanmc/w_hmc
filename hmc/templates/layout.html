@@ -1,0 +1,22 @@
+<html>
+    <head>
+    	{% load staticfiles %}
+    	<meta charset="utf-8">
+		<title>{% block title %}{% endblock %}</title>
+		<link rel="shortcut icon"    href="{{ url_for('static', filename='images/favicon.ico')  }}" type="image/hmc-icon" />
+		<link rel="icon" href="{{ url_for('static', filename='images/favicon.ico')  }}" type="image/hmc-icon" />
+		<!-- css -->
+		<style>
+		    body{text-align: center;}
+		</style>
+		{% block css %}{% endblock %}
+		<!-- js -->
+		<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.min.js')  }}" ></script>
+		{% block js %}{% endblock %}
+    </head>
+	
+	<body>
+	{% block body %}
+	{% endblock %}
+	</body>
+</html>
