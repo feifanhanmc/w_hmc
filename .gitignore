@@ -1,8 +1,4 @@
 instance/
 venv/
 *.pyc
-
-#Eclipse
-.project
-.pydevproject
-.settings
+/test
