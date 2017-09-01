@@ -1,1 +1,105 @@
-<h1>aaaaaaa</h1>
+{% extends 'layout.html' %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/puzzle_game/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/puzzle_game/puzzle.css') }}">
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/puzzle_game/jquery-ui.js')  }}" ></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/puzzle_game/puzzle.js')  }}" ></script>
+{% endblock %}
+
+{% block body %}
+<body style="cursor: auto;">
+    <div id="collage">
+        <div id="playPanel" style="padding: 5px;">
+            <h3 id="imgTitle">
+                Qutub Minar</h3>
+            <hr>
+            <div style="display: inline-block; margin: auto; width: 100%; vertical-align: top;">
+                <ul id="sortable" class="sortable">
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="0" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 0% 0%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="1" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 33.33% 0%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="2" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 66.66% 0%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="3" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 99.99% 0%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="4" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 0% 33.33%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="5" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 33.33% 33.33%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="6" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 66.66% 33.33%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="7" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 99.99% 33.33%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="8" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 0% 66.66%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="9" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 33.33% 66.66%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="10" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 66.66% 66.66%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="11" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 99.99% 66.66%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="12" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 0% 99.99%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="13" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 33.33% 99.99%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="14" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 66.66% 99.99%;"></li>
+                    <li class="item ui-draggable ui-draggable-handle ui-droppable" data-value="15" style="background-image: {{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}};
+                        background-position: 99.99% 99.99%;"></li>
+                </ul>
+               <div id="actualImageBox" >
+                    <!--                     
+                        <img id="actualImage" src="{{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}}"> 
+                        <div>
+                            Re arrange to create a picture like this at left side.
+                        </div>
+                        <br>
+                    -->
+                    <div>
+                        <button id="newPhoto" type="button" class="btn">
+                            Another Photo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="gameOver" style="display: none;">
+            <div style="background-color: #fc9e9e; padding: 5px 10px 20px 10px; text-align: center;">
+                <h2 style="text-align: center">
+                    Game Over!!</h2>
+                Congratulations!!
+                <br>
+                <br>
+                You have completed this picture.
+                <br>
+                <br>
+                <div>
+                    <button type="button" onclick="window.location.reload(true);">
+                        Play Again</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            var images = [
+                { src: "{{ url_for('static', filename='images/puzzle_game/london-bridge.jpg')}}", title: 'London Bridge' },
+                { src: "{{ url_for('static', filename='images/puzzle_game/lotus-temple.jpg')}}", title: 'Lotus Temple' },
+                { src: "{{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}}", title: 'Qutub Minar' },
+                { src: "{{ url_for('static', filename='images/puzzle_game/statue-of-liberty.jpg')}}", title: 'Statue Of Liberty' },
+                { src: "{{ url_for('static', filename='images/puzzle_game/taj-mahal.jpg')}}", title: 'Taj Mahal' },
+                { src: "{{ url_for('static', filename='images/puzzle_game/shuai-bi.jpg')}}", title: 'Shuai Bi' }
+            ];
+
+            $(function () {
+                imagePuzzle.startGame(images);
+                $('#newPhoto').click(function () {
+                    imagePuzzle.startGame(images);
+                });
+            });
+            
+        </script>
+    </div>
+</body>
+{% endblock %}

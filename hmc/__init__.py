@@ -6,7 +6,7 @@ from hmc.home.views import home_bp
 
 from database import db
 # from hmc.admin import models
-# from hmc.home import models
+from hmc.home import models
 
 
 def create_app():
@@ -22,8 +22,8 @@ def create_app():
     app.config.from_pyfile('config.py')
 
     # Create database
-    # db.init_app(app)
-#     with app.test_request_context():
-#         db.create_all()
+    db.init_app(app)
+    with app.test_request_context():
+        db.create_all()
 
     return app
