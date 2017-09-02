@@ -12,17 +12,11 @@
 		{% block js %}{% endblock %}
     </head>
     <div class="page">
-		<div class="metanav">
-		  	{% if not session.logged_in %}
-		    	<a href="{{ url_for('home.login') }}">log in</a>
-		  	{% else %}
-		    	<a href="{{ url_for('home.logout') }}">log out</a>
-		  	{% endif %}
-		</div>
 		{% for message in get_flashed_messages() %}
 		  	<div class="flash">{{ message }}</div>
 		{% endfor %}
 		{% block body %}
 		{% endblock %}
+		{% block bottom %}{% endblock %}
 	</div>
 </html>

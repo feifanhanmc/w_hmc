@@ -10,6 +10,14 @@
 {% endblock %}
 
 {% block body %}
+<div class="metanav">
+    {% if not session.logged_in %}
+        <a href="{{ url_for('home.login') }}">log in</a>
+    {% else %}
+        <a>欢迎您, {{ session.nickname }} !</a>
+        <a href="{{ url_for('home.logout') }}">log out</a>
+    {% endif %}
+</div>
 <body style="cursor: auto;">
     <div id="collage">
         <div id="playPanel" style="padding: 5px;">
@@ -89,7 +97,8 @@
                 { src: "{{ url_for('static', filename='images/puzzle_game/qutub-minar.jpg')}}", title: 'Qutub Minar' },
                 { src: "{{ url_for('static', filename='images/puzzle_game/statue-of-liberty.jpg')}}", title: 'Statue Of Liberty' },
                 { src: "{{ url_for('static', filename='images/puzzle_game/taj-mahal.jpg')}}", title: 'Taj Mahal' },
-                { src: "{{ url_for('static', filename='images/puzzle_game/shuai-bi.jpg')}}", title: 'Shuai Bi' }
+                { src: "{{ url_for('static', filename='images/puzzle_game/shuai-bi.jpg')}}", title: 'Shuai Bi' },
+                { src: "{{ url_for('static', filename='images/puzzle_game/we-chat.jpg')}}", title: 'We Chat' }
             ];
 
             $(function () {
@@ -102,4 +111,9 @@
         </script>
     </div>
 </body>
+{% endblock %}
+{% block bottom %}
+    <a>站内链接:</a><br>
+    <a href="{{ url_for('home.test') }}">test</a>
+    <a href="{{ url_for('home.test') }}">test</a>
 {% endblock %}

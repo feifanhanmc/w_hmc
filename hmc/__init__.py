@@ -18,7 +18,6 @@ def create_app():
     app.register_blueprint(admin_bp, url_prefix='/admin')
 
     #config    
-    # app.config.from_object('config')
     app.config.from_pyfile('config.py')
 
     # Create database
