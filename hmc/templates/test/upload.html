@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<html>
+<head>
+	<title>TEST</title>
+	<script type="text/javascript">
+	window.onload=function(){	//保证js代码在文档加载完成后才去执行，免得找不到对应的element
+	    var fileInput = document.getElementById('image_file');
+	    var info = document.getElementById('file_info');
+	    var preview = document.getElementById('image_preview');
+
+	    fileInput.addEventListener('change',function(){
+	        // console.log('change...');
+	        preview.style.backgroundImage='';
+	        if (!fileInput.value){
+	            info.innerHTML = '没有选择文件';
+	            return ;
+	        }
+
+	        var file = fileInput.files[0];
+	        info.innerHTML = '文件:' + file.name + '<br>'+'大小:'+file.size+'<br>'+'修改:'+file.lastModifiedDate;
+
+	        if(file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/jpg'){
+	            alert('不是有效的图片文件!');
+	            return;
+	        }
+
+	        var reader = new FileReader();
+	        reader.readAsDataURL(file);	//发起一个异步操作来读取文件内容
+	        reader.onload=function(e){	//当文件读取完成后，自动调用此函数
+	            // console.log('reader.onload');
+	            var data = e.target.result;
+	            preview.style.backgroundImage='url('+ data +')';
+	        };
+	        
+	    });
+	};
+	</script>
+</head>
+<body>
+    <div id="image_preview" style="border: 1px solid #ccc; width: 980px;margin:auto; height: 200px; background-size: contain; background-repeat: no-repeat; background-position: center center;"></div>
+    <div id="file_info"></div>
+    <form method="post" action="{{ url_for('test.upload') }}" enctype="multipart/form-data">
+    	<input id="image_file" type="file" name="upload_file">
+    	<br>
+    	<input type="submit">上传</input>
+    </form>
+</body>
+</html>

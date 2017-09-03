@@ -3,6 +3,7 @@ from flask import Flask
 
 from hmc.admin.views import admin_bp
 from hmc.home.views import home_bp
+from hmc.test.views import test_bp
 
 from database import db
 # from hmc.admin import models
@@ -16,7 +17,8 @@ def create_app():
     # Create modules(一定要在config之前注册蓝图)
     app.register_blueprint(home_bp, url_prefix='')
     app.register_blueprint(admin_bp, url_prefix='/admin')
-
+    app.register_blueprint(test_bp, url_prefix='/test')
+    
     #config    
     app.config.from_pyfile('config.py')
 
