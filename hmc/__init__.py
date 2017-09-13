@@ -4,10 +4,10 @@ from flask import Flask
 from hmc.admin.views import admin_bp
 from hmc.home.views import home_bp
 from hmc.test.views import test_bp
+from hmc.hmk.views import hmk_bp
 
 from database import db
-# from hmc.admin import models
-from hmc.home import models
+from hmc import models
 
 
 def create_app():
@@ -18,6 +18,7 @@ def create_app():
     app.register_blueprint(home_bp, url_prefix='')
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(test_bp, url_prefix='/test')
+    app.register_blueprint(hmk_bp, url_prefix='/hmk')
     
     #config    
     app.config.from_pyfile('config.py')

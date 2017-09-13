@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+{% block title %}Add{% endblock %}
+{% block js %}
+<script type="text/javascript">
+window.onload = function(){
+    	var d = document.getElementById('form_date_element');
+   	 	var now = new Date();
+   	 	year = now.getFullYear();
+   	 	month = now.getMonth() + 1;
+		day = now.getDate();
+   	 	if(month < 10 ){
+   	 		month = '0' + String(month);
+   	 	}
+   	 	if(day < 10 ){
+   	 		day = '0' + String(day);
+   	 	}
+    	date = year + '-' + month + '-' + day;
+    	d.value = date;
+  	}
+	function checkForm(form) { 
+	    for (var i = 0; i < form.elements.length; i++) { 
+	        if (form.elements[i].type == "text" && form.elements[i].value == "") { 
+	            alert("Fill out ALL fields."); 
+	            return false; 
+	        } 
+	    } 
+	    return true; 
+	} 
+</script>
+{% endblock %}
+{% block body %}
+<div class="metanav">
+    {% if not session.logged_in %}
+        <a href="{{ url_for('hmk.login') }}">log in</a>
+    {% else %}
+        <a>欢迎您, {{ session.nickname }} !</a>
+        <a href="{{ url_for('hmk.logout') }}">log out</a>
+        <h1><a href="{{ url_for('hmk.view') }}">view</a></h1>
+    {% endif %}
+</div>
+<div >
+    <form action="{{ url_for('hmk.add') }}" method="post" onsubmit="return checkForm(this)">
+      <dl>
+        <dt>拜访商户名称:
+        <dd><input type="text" size="30" name="merchant_name">
+        <dt>商户负责人电话:
+        <dd><input type="text" size="30" name="merchant_tel">
+        <dt>拜访目的:
+        <dd><input type="radio" name="visit_purpose" value="wjxq" checked>挖掘需求
+        <dd><input type="radio" name="visit_purpose" value="qy">签约
+        <dd><input type="radio" name="visit_purpose" value="wh">维护
+        <dt>拜访结果:
+        <dd><textarea name="visit_result" rows="5" cols="40"></textarea>
+        <dt>拜访时间:
+        <dd><input type="date" value="" id="form_date_element" name="visit_time">
+        <br>
+        <br>
+        <dd><button type="submit">Add</button>
+      </dl>
+    </form>
+</div>
+{% endblock %}

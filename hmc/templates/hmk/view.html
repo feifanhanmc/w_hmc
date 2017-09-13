@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}View{% endblock %}
+{% block body %}
+<div class="metanav">
+    {% if not session.logged_in %}
+        <a href="{{ url_for('hmk.login') }}">log in</a>
+    {% else %}
+        <a>欢迎您, {{ session.nickname }} !</a>
+        <a href="{{ url_for('hmk.logout') }}">log out</a>
+        <h1><a href="{{ url_for('hmk.add') }}">add</a></h1>
+    {% endif %}
+</div>
+<div >
+  <a href="{{ url_for('hmk.view', limit=3) }}">最近3天</a>
+  <a href="{{ url_for('hmk.view', limit=7) }}">最近7天</a>
+  <a href="{{ url_for('hmk.view', limit=999) }}">所有</a>
+  <ul class="records">
+	  {% for record in records %}
+	  	<hr>
+	    <li><h2>商户名称：{{ record.merchant_name }}</h2></li>
+	    <li>拜访时间：{{ record.visit_time }}</li>
+	    <li>负责人电话：{{ record.merchant_tel }}</li>
+	    <li>拜访目的：{{ record.visit_purpose }}</li>
+	    <li>拜访结果：{{ record.visit_result }}</li>
+	  {% else %}
+	    <li><em>No records here so far</em></li>
+	  {% endfor %}
+  </ul>
+</div>
+{% endblock %}

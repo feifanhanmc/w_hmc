@@ -113,7 +113,9 @@
 </body>
 {% endblock %}
 {% block bottom %}
-    <a>站内链接:</a><br>
-    <a href="{{ url_for('home.test') }}">test</a>
+    <a>相关链接:</a><br>
+    <a href="http://blog.csdn.net/feifanhanmc">blog</a>
+    <a href="http://github.com/feifanhanmc">github</a>
+    <a href="{{ url_for('test.upload') }}">imageslim</a>
     <a href="{{ url_for('home.test') }}">test</a>
 {% endblock %}

@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block js %}
+  <script type="text/javascript" src="{{ url_for('static', filename='js/md5.min.js')  }}" ></script>
+  <script type="text/javascript">
+    function toMd5() {
+      var input_pw = document.getElementById('password');
+      var password_md5 = document.getElementById('password_md5');
+      password_md5.value = md5(input_pw.value);
+      return true;
+    }
+  </script>
+{% endblock %}
+{% block body %}
+  <div class="metanav">
+      <a href="{{ url_for('hmk.reg') }}">Register</a>
+  </div>
+  <h2>Login</h2>
+  {% if error %}<p class="error"><strong>Error:</strong> {{ error }}{% endif %}
+  <form action="{{ url_for('hmk.login') }}" method="post" onsubmit="return toMd5()">
+      <p>账号：<input type="text" name="username"></p>
+      <p>密码：<input type="password" id="password"></p>
+      <p><input type="hidden" id="password_md5" name="password_md5"></p>
+      <p><button type="submit">登陆</button></p>
+  </form>
+{% endblock %}

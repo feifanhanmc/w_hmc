@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block title %}Register{% endblock %}
+{% block js %}
+	<script type="text/javascript" src="{{ url_for('static', filename='js/md5.min.js')  }}" ></script>
+	<script type="text/javascript">
+		function checkRegisterForm() {
+			var usernameReg = /[0-9a-zA-Z_]{6,10}/;
+			var passwordReg = /\w{6,20}/;
+			var input_un = document.getElementById('username');
+			var input_pw = document.getElementById('password');
+			var input_pw2 = document.getElementById('password-2');
+			var password_md5 = document.getElementById('password_md5');
+
+			if(!usernameReg.test(input_un.value)){
+			 alert('账号必须为6-10位的英文字母或数字');
+			 return false;
+			}
+			if(!passwordReg.test(input_pw.value)){
+			 alert('密码必须是6-20位字母或数字');
+			 return false;
+			}
+			if(input_pw.value != input_pw.value){
+			 alert('两次输入的口令必须一致');
+			 return false;
+			}
+			password_md5.value = md5(input_pw.value);
+			return true;
+		}
+	</script>
+{% endblock %}
+{% block body %}
+<div class="metanav">
+    <a href="{{ url_for('hmk.login') }}">Login</a>
+</div>
+<h2>Register</h2>
+{% if error %}<p class="error"><strong>Error:</strong> {{ error }}{% endif %}
+<div >
+	<form id="register" method="post" action="{{ url_for('hmk.reg') }}" onsubmit="return checkRegisterForm()">
+	    <p id="test-error" style="color:red"></p>
+	    <p>
+	        账号: <input type="text" id="username" name="username">
+	    </p>
+	    <p>
+		    昵称：<input type="text" id="nickname" name="nickname">
+	    </p> 
+	    <p>
+		    公司名称：<input type="text" id="comname" name="comname">
+	    </p> 
+	    <p>
+	        口令: <input type="password" id="password">
+	    </p>
+	    <p>
+	        重复口令: <input type="password" id="password-2">
+	    </p>
+	    <input type="hidden" id="password_md5" name="password_md5">
+	    <p>
+	        <button type="reset">重置</button> <button type="submit">注册</button> 
+	    </p>
+	</form>
+</div>
+{% endblock %}

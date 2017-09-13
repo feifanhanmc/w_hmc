@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, render_template, abort, g, request, session, flash, redirect, url_for
-from flask.blueprints import Blueprint
-from jinja2 import TemplateNotFound
-from hmc.home.models import User
+from flask import Blueprint, render_template, g, request, session, flash, redirect, url_for
+from hmc.models import User
 from hmc.database import db
 
 #from flask_login import login_required
@@ -11,8 +9,6 @@ home_bp = Blueprint('home', __name__)
 @home_bp.route('/')
 @home_bp.route('/index')
 def index():
-#     session['logged_in'] = True
-#     session['nickname'] = 'aaaaaaaa'
     return render_template('home/index.html')
 
 @home_bp.route('/reg', methods=['GET', 'POST'])
@@ -63,3 +59,7 @@ def logout():
 @home_bp.route('/test')
 def test():
     return 'test'
+
+@home_bp.route('/test2')
+def test2():
+    return 'test2'
